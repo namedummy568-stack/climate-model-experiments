@@ -1,0 +1,20 @@
+name: Run Climate Model
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    - name: Run model script
+      run: python model_component.py > model_output.txt
+    - name: Upload model output
+      uses: actions/upload-artifact@v4
+      with:
+        name: model-output
+        path: model_output.txt
